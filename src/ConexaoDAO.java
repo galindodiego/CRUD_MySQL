@@ -6,12 +6,12 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+
 /**
- *
+ * 
  * @author Diego
  */
-
-
 public class ConexaoDAO {
     public Connection conectaBD(){
         Connection conn = null;
