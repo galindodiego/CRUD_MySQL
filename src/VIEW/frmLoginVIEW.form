@@ -91,11 +91,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="LOGIN"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntrarSistemaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnLimparCampos">
       <Properties>
         <Property name="text" type="java.lang.String" value="LIMPAR CAMPOS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparCamposActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

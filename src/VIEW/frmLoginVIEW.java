@@ -4,12 +4,15 @@
  */
 package VIEW;
 
+import DTO.UsuarioDTO;
+
 /**
  *
  * @author Diego
  */
 public class frmLoginVIEW extends javax.swing.JFrame {
 
+    UsuarioDTO objUsuarioDto = new UsuarioDTO();
     /**
      * Creates new form frmLoginVIEW
      */
@@ -40,8 +43,18 @@ public class frmLoginVIEW extends javax.swing.JFrame {
         jLabel2.setText("SENHA");
 
         btnEntrarSistema.setText("LOGIN");
+        btnEntrarSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarSistemaActionPerformed(evt);
+            }
+        });
 
         btnLimparCampos.setText("LIMPAR CAMPOS");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +100,25 @@ public class frmLoginVIEW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEntrarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarSistemaActionPerformed
+       //variaveis locais
+        String nome_usuario;
+        String senha_usuario;
+        
+        //Salva nas variveis os campos JTextField
+        nome_usuario = txtNomeUsuario.getText();
+        senha_usuario = txtSenhaUsuario.getText();
+        
+        //Salva os dados no objeto UsuarioDTO os campos contidos nas variaveis locais
+        objUsuarioDto.setNome_usuario(nome_usuario);
+        objUsuarioDto.setSenha_usuario(senha_usuario);
+    }//GEN-LAST:event_btnEntrarSistemaActionPerformed
+
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+       txtNomeUsuario.setText("");
+       txtSenhaUsuario.setText("");
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     /**
      * @param args the command line arguments
