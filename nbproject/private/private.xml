@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/DAO/UsuarioDAO.java</file>
+            <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/DAO/FuncionarioDAO.java</file>
             <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/VIEW/frmLoginVIEW.java</file>
+            <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/DTO/FuncionarioDTO.java</file>
+            <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/VIEW/frmFuncionarioView.java</file>
             <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/DAO/ConexaoDAO.java</file>
             <file>file:/C:/Users/Diego/Documents/NetBeansProjects/Crud_Java_/src/DTO/UsuarioDTO.java</file>
         </group>

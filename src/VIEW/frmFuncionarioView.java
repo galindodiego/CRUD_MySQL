@@ -4,6 +4,11 @@
  */
 package VIEW;
 
+import DAO.FuncionarioDAO;
+import DTO.FuncionarioDTO;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Diego
@@ -39,6 +44,11 @@ public class frmFuncionarioView extends javax.swing.JFrame {
         jLabel2.setText("Endereço");
 
         btnCadastrar.setText("CADASTRAR");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,6 +92,10 @@ public class frmFuncionarioView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+       
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -124,4 +138,17 @@ public class frmFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
+    private void cadastrar() throws ClassNotFoundException{
+        
+        String nome,endereco;
+        nome = txtNome.getText();
+        endereco = txtEndereco.getText();
+        FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+        objFuncionarioDto.setNome_funcionario(nome);
+        objFuncionarioDto.setEndereco_funcionario(endereco);
+        FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
+        objFuncionarioDao.cadastrarFuncionario(objFuncionarioDto);
+    }
+
 }

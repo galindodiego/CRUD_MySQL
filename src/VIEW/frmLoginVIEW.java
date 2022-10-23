@@ -112,8 +112,7 @@ public class frmLoginVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarSistemaActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        txtNomeUsuario.setText("");
-        txtSenhaUsuario.setText("");
+       limparCamposLogin();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     /**
@@ -181,8 +180,11 @@ public class frmLoginVIEW extends javax.swing.JFrame {
             //      objusuariodao.autenticacaoUsuario(objUsuarioDto);
             if (rsUsuarioDao.next()) {
                 //Chamar tela que eu quero abrir
-                frmPrincipalVIEW objFrmPrincipalView = new frmPrincipalVIEW();
-                objFrmPrincipalView.setVisible(true);
+//                frmPrincipalVIEW objFrmPrincipalView = new frmPrincipalVIEW();
+//                objFrmPrincipalView.setVisible(true);
+                
+                frmFuncionarioView objFrmFuncionarioView = new frmFuncionarioView();
+                objFrmFuncionarioView.setVisible(true);
 
                 dispose();
 
@@ -198,6 +200,10 @@ public class frmLoginVIEW extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmLoginVIEW.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void limparCamposLogin(){
+         txtNomeUsuario.setText("");
+        txtSenhaUsuario.setText("");
     }
 
 }
