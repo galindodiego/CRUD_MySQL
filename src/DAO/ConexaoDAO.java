@@ -7,18 +7,23 @@ package DAO;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+
 /**
- * 
+ *
  * @author Diego
  */
 public class ConexaoDAO {
-    public Connection conectaBD(){
+
+    public Connection conectaBD() throws ClassNotFoundException {
         Connection conn = null;
+     //  Class.forName("com.mysql.jdbc.Driver");
         
         try {
-            String url = "jdbc:mysql://localhost:3606/bancoteste?user=root&password=";
-            conn = DriverManager.getConnection(url);
+           
+            String url = "jdbc:mysql://localhost:3306/bancoteste?user=root&password=";
+           // String url = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL";
+          conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

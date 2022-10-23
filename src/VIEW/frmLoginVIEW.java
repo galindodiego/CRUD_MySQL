@@ -4,7 +4,12 @@
  */
 package VIEW;
 
+import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +18,7 @@ import DTO.UsuarioDTO;
 public class frmLoginVIEW extends javax.swing.JFrame {
 
     UsuarioDTO objUsuarioDto = new UsuarioDTO();
+
     /**
      * Creates new form frmLoginVIEW
      */
@@ -32,9 +38,9 @@ public class frmLoginVIEW extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNomeUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtSenhaUsuario = new javax.swing.JTextField();
         btnEntrarSistema = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
+        txtSenhaUsuario = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,12 +78,12 @@ public class frmLoginVIEW extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNomeUsuario)
-                            .addComponent(txtSenhaUsuario)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnEntrarSistema)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addComponent(btnLimparCampos)
-                                .addGap(27, 27, 27)))))
+                                .addGap(27, 27, 27))
+                            .addComponent(txtSenhaUsuario))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,9 +95,9 @@ public class frmLoginVIEW extends javax.swing.JFrame {
                 .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrarSistema)
                     .addComponent(btnLimparCampos))
@@ -102,22 +108,12 @@ public class frmLoginVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarSistemaActionPerformed
-       //variaveis locais
-        String nome_usuario;
-        String senha_usuario;
-        
-        //Salva nas variveis os campos JTextField
-        nome_usuario = txtNomeUsuario.getText();
-        senha_usuario = txtSenhaUsuario.getText();
-        
-        //Salva os dados no objeto UsuarioDTO os campos contidos nas variaveis locais
-        objUsuarioDto.setNome_usuario(nome_usuario);
-        objUsuarioDto.setSenha_usuario(senha_usuario);
+        logar();
     }//GEN-LAST:event_btnEntrarSistemaActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-       txtNomeUsuario.setText("");
-       txtSenhaUsuario.setText("");
+        txtNomeUsuario.setText("");
+        txtSenhaUsuario.setText("");
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     /**
@@ -161,6 +157,47 @@ public class frmLoginVIEW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JTextField txtSenhaUsuario;
+    private javax.swing.JPasswordField txtSenhaUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void logar() {
+
+        try {
+
+            //variaveis locais
+            String nome_usuario;
+            String senha_usuario;
+
+            //Salva nas variveis os campos JTextField
+            nome_usuario = txtNomeUsuario.getText();
+            senha_usuario = txtSenhaUsuario.getText();
+
+            //Salva os dados no objeto UsuarioDTO os campos contidos nas variaveis locais
+            objUsuarioDto.setNome_usuario(nome_usuario);
+            objUsuarioDto.setSenha_usuario(senha_usuario);
+
+            UsuarioDAO objusuariodao = new UsuarioDAO();
+            ResultSet rsUsuarioDao = objusuariodao.autenticacaoUsuario(objUsuarioDto);
+            //      objusuariodao.autenticacaoUsuario(objUsuarioDto);
+            if (rsUsuarioDao.next()) {
+                //Chamar tela que eu quero abrir
+                frmPrincipalVIEW objFrmPrincipalView = new frmPrincipalVIEW();
+                objFrmPrincipalView.setVisible(true);
+
+                dispose();
+
+            } else {
+                //Enviar mensagem dizendo incorreto.
+                JOptionPane.showMessageDialog(null, "Usuário ou Senha inválida");
+
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FRMLINVIEW" + erro);
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmLoginVIEW.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

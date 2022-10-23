@@ -19,7 +19,7 @@ public class UsuarioDAO {
 
     Connection conn;
 
-    public ResultSet autenticacaoUsuario(UsuarioDTO objusuariodto) {
+    public ResultSet autenticacaoUsuario(UsuarioDTO objusuariodto) throws ClassNotFoundException {
         conn = new ConexaoDAO().conectaBD();
 
         try {
