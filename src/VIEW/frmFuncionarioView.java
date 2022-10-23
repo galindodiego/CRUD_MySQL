@@ -9,6 +9,8 @@ import DTO.FuncionarioDTO;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +44,10 @@ public class frmFuncionarioView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaFuncionario = new javax.swing.JTable();
         btnListarFuncionarios = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        btnCarregarCampos = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,7 +70,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Endereço"
             }
         ));
         jScrollPane1.setViewportView(tabelaFuncionario);
@@ -76,38 +82,65 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Código");
+
+        txtCodigo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtCodigo.setEnabled(false);
+
+        btnCarregarCampos.setText("CARREGAR CAMPOS");
+        btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarCamposActionPerformed(evt);
+            }
+        });
+
+        btnAlterar.setText("ALTERAR");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnListarFuncionarios)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(txtNome)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnCarregarCampos)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(235, 235, 235))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAlterar))
+                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListarFuncionarios))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,10 +151,14 @@ public class frmFuncionarioView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
-                    .addComponent(btnListarFuncionarios))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(btnListarFuncionarios)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCarregarCampos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,12 +166,22 @@ public class frmFuncionarioView extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         cadastrar();
+        listarValoresFuncionarios();
         limpar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
         listarValoresFuncionarios();
     }//GEN-LAST:event_btnListarFuncionariosActionPerformed
+
+    private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
+        carregarCampos();
+    }//GEN-LAST:event_btnCarregarCamposActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        alterarFuncionario();
+        listarValoresFuncionarios();
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,15 +219,27 @@ public class frmFuncionarioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCarregarCampos;
     private javax.swing.JButton btnListarFuncionarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaFuncionario;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
+    private void carregarCampos() {
+        int setar = tabelaFuncionario.getSelectedRow();
+        txtCodigo.setText(tabelaFuncionario.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaFuncionario.getModel().getValueAt(setar, 1).toString());
+        txtEndereco.setText(tabelaFuncionario.getModel().getValueAt(setar, 2).toString());
+
+    }
 
     private void cadastrar() {
 
@@ -227,4 +286,28 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ListarValoresVIEW" + erro);
         }
     }
+
+    private void alterarFuncionario() {
+        try {
+            int id_funcionario;
+            String nome_funcionario;
+            String endereco_funcionario;
+
+            id_funcionario = Integer.parseInt(txtCodigo.getText());
+            nome_funcionario = txtNome.getText();
+            endereco_funcionario = txtEndereco.getText();
+
+            FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+            objFuncionarioDto.setId_funcionario(id_funcionario);
+            objFuncionarioDto.setNome_funcionario(nome_funcionario);
+            objFuncionarioDto.setEndereco_funcionario(endereco_funcionario);
+
+            FuncionarioDAO objFuncinarioDao = new FuncionarioDAO();
+            objFuncinarioDao.alterarFuncionario(objFuncionarioDto);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"frmFuncionarioView "+ erro);
+
+        }
+    }
+
 }
