@@ -11,6 +11,7 @@ package DTO;
 public class FuncionarioDTO {
     private String nome_funcionario;
     private String endereco_funcionario;
+    private int id_funcionario;
 
     /**
      * @return the nome_funcionario
@@ -38,6 +39,20 @@ public class FuncionarioDTO {
      */
     public void setEndereco_funcionario(String endereco_funcionario) {
         this.endereco_funcionario = endereco_funcionario;
+    }
+
+    /**
+     * @return the id_funcionario
+     */
+    public int getId_funcionario() {
+        return id_funcionario;
+    }
+
+    /**
+     * @param id_funcionario the id_funcionario to set
+     */
+    public void setId_funcionario(int id_funcionario) {
+        this.id_funcionario = id_funcionario;
     }
     
     

@@ -6,8 +6,10 @@ package VIEW;
 
 import DAO.FuncionarioDAO;
 import DTO.FuncionarioDTO;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +22,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
      */
     public frmFuncionarioView() {
         initComponents();
+        listarValoresFuncionarios();
     }
 
     /**
@@ -36,6 +39,9 @@ public class frmFuncionarioView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaFuncionario = new javax.swing.JTable();
+        btnListarFuncionarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,28 +56,53 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             }
         });
 
+        tabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaFuncionario);
+
+        btnListarFuncionarios.setText("LISTAR FUNCIONÁRIOS");
+        btnListarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarFuncionariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnCadastrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtNome)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCadastrar)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnListarFuncionarios)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(txtNome)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,16 +116,25 @@ public class frmFuncionarioView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCadastrar)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnListarFuncionarios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-       
+        cadastrar();
+        limpar();
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
+        listarValoresFuncionarios();
+    }//GEN-LAST:event_btnListarFuncionariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,22 +173,58 @@ public class frmFuncionarioView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnListarFuncionarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaFuncionario;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 
-    private void cadastrar() throws ClassNotFoundException{
-        
-        String nome,endereco;
-        nome = txtNome.getText();
-        endereco = txtEndereco.getText();
-        FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
-        objFuncionarioDto.setNome_funcionario(nome);
-        objFuncionarioDto.setEndereco_funcionario(endereco);
-        FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
-        objFuncionarioDao.cadastrarFuncionario(objFuncionarioDto);
+    private void cadastrar() {
+
+        try {
+            String nome, endereco;
+            nome = txtNome.getText();
+            endereco = txtEndereco.getText();
+            FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+            objFuncionarioDto.setNome_funcionario(nome);
+            objFuncionarioDto.setEndereco_funcionario(endereco);
+            FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
+            objFuncionarioDao.cadastrarFuncionario(objFuncionarioDto);
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "frmFuncionarioVIEW" + erro);
+        }
+
     }
 
+    private void limpar() {
+        txtNome.setText("");
+        txtEndereco.setText("");
+    }
+
+    private void listarValoresFuncionarios() {
+        try {
+            FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
+            DefaultTableModel model = (DefaultTableModel) tabelaFuncionario.getModel();
+            model.setNumRows(0);
+
+            ArrayList<FuncionarioDTO> listaFuncionarios = objFuncionarioDao.pesquisarFuncionario();
+
+            for (int num = 0; num < listaFuncionarios.size(); num++) {
+                model.addRow(new Object[]{
+                    listaFuncionarios.get(num).getId_funcionario(),
+                    listaFuncionarios.get(num).getNome_funcionario(),
+                    listaFuncionarios.get(num).getEndereco_funcionario()
+
+                }
+                );
+            }
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarValoresVIEW" + erro);
+        }
+    }
 }
