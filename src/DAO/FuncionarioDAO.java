@@ -92,4 +92,18 @@ public class FuncionarioDAO {
             JOptionPane.showMessageDialog(null,"FuncionarioDAO Alterar "+erro);
         }
     }
+    
+    public void deletarFuncionario(FuncionarioDTO objFuncionarioDto) throws ClassNotFoundException{
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "delete from funcionario where id_funcionario = ?";
+        
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, objFuncionarioDto.getId_funcionario());
+            pstm.execute();
+            pstm.close();
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null,"FuncionarioDAO Deletar "+erro);
+        }
+    }
 }

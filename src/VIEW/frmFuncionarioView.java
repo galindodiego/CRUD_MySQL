@@ -48,6 +48,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         btnCarregarCampos = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +102,13 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             }
         });
 
+        btnDeletar.setText("DELETAR");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,29 +116,28 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnCarregarCampos)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(235, 235, 235))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadastrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAlterar))
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListarFuncionarios))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnCadastrar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnAlterar)
+                            .addGap(29, 29, 29)
+                            .addComponent(btnDeletar))
+                        .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnListarFuncionarios)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,7 +158,8 @@ public class frmFuncionarioView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
-                    .addComponent(btnAlterar))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnDeletar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btnListarFuncionarios)
                 .addGap(18, 18, 18)
@@ -167,7 +175,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         cadastrar();
         listarValoresFuncionarios();
-        limpar();
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarFuncionariosActionPerformed
@@ -181,7 +189,13 @@ public class frmFuncionarioView extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarFuncionario();
         listarValoresFuncionarios();
+
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+       deletarFuncionario();
+       listarValoresFuncionarios();
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +236,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCarregarCampos;
+    private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnListarFuncionarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -245,13 +260,18 @@ public class frmFuncionarioView extends javax.swing.JFrame {
 
         try {
             String nome, endereco;
-            nome = txtNome.getText();
-            endereco = txtEndereco.getText();
-            FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
-            objFuncionarioDto.setNome_funcionario(nome);
-            objFuncionarioDto.setEndereco_funcionario(endereco);
-            FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
-            objFuncionarioDao.cadastrarFuncionario(objFuncionarioDto);
+            if (txtNome.getText().isBlank() | txtEndereco.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "Favor preencher todos os campos");
+            } else {
+                nome = txtNome.getText();
+                endereco = txtEndereco.getText();
+                FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+                objFuncionarioDto.setNome_funcionario(nome);
+                objFuncionarioDto.setEndereco_funcionario(endereco);
+                FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
+                objFuncionarioDao.cadastrarFuncionario(objFuncionarioDto);
+                limpar();
+            }
 
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "frmFuncionarioVIEW" + erro);
@@ -283,7 +303,7 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             }
 
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "ListarValoresVIEW" + erro);
+            JOptionPane.showMessageDialog(null, "ListarValoresVIEW listar" + erro);
         }
     }
 
@@ -294,20 +314,53 @@ public class frmFuncionarioView extends javax.swing.JFrame {
             String endereco_funcionario;
 
             id_funcionario = Integer.parseInt(txtCodigo.getText());
-            nome_funcionario = txtNome.getText();
-            endereco_funcionario = txtEndereco.getText();
 
-            FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
-            objFuncionarioDto.setId_funcionario(id_funcionario);
-            objFuncionarioDto.setNome_funcionario(nome_funcionario);
-            objFuncionarioDto.setEndereco_funcionario(endereco_funcionario);
+            if (txtNome.getText().isBlank() | txtEndereco.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "Favor preencher todos os campos");
+            } else {
+                nome_funcionario = txtNome.getText();
+                endereco_funcionario = txtEndereco.getText();
 
-            FuncionarioDAO objFuncinarioDao = new FuncionarioDAO();
-            objFuncinarioDao.alterarFuncionario(objFuncionarioDto);
+                FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+                objFuncionarioDto.setId_funcionario(id_funcionario);
+                objFuncionarioDto.setNome_funcionario(nome_funcionario);
+                objFuncionarioDto.setEndereco_funcionario(endereco_funcionario);
+
+                FuncionarioDAO objFuncinarioDao = new FuncionarioDAO();
+                objFuncinarioDao.alterarFuncionario(objFuncionarioDto);
+                limpar();
+            }
+
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null,"frmFuncionarioView "+ erro);
+            JOptionPane.showMessageDialog(null, "frmFuncionarioView alterar " + erro);
 
         }
+    }
+
+    private void deletarFuncionario() {
+        try {
+            int id_funcionario;
+            String nome_funcionario;
+            String endereco_funcionario;
+            if (txtCodigo.getText().isBlank() | txtNome.getText().isBlank() | txtEndereco.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "Favor selecionar o funcionário");
+            } else {
+                id_funcionario = Integer.parseInt(txtCodigo.getText());
+                nome_funcionario = txtNome.getText();
+                endereco_funcionario = txtEndereco.getText();
+
+                FuncionarioDTO objFuncionarioDto = new FuncionarioDTO();
+                objFuncionarioDto.setId_funcionario(id_funcionario);
+                objFuncionarioDto.setNome_funcionario(nome_funcionario);
+                objFuncionarioDto.setEndereco_funcionario(endereco_funcionario);
+                FuncionarioDAO objFuncionarioDao = new FuncionarioDAO();
+                objFuncionarioDao.deletarFuncionario(objFuncionarioDto);
+                limpar();
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "frmFuncionarioView deletar " + erro);
+        }
+
     }
 
 }
